@@ -36,4 +36,57 @@ router.post("/", async (req, res) => {
   }
 });
 
+// GET request
+/* The code block `router.get("/", async (req, res) => { ... })` is defining a route handler for a GET
+request to the root URL ("/") of the server. */
+router.get("/", async (req, res) => {
+  try {
+    /* `const products = await product.find({});` is querying the database to find all products. */
+    const products = await product.find({});
+
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ error: "Server error, could not get products" });
+  }
+});
+
+// PUT request
+/* The code block `router.put("/:id", async (req, res) => { ... })` is defining a route handler for a
+PUT request to the URL "/:id" of the server. This route is used to update a specific product in the
+database. */
+router.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const productId = await product.findByIdAndUpdate(id, req.body);
+
+    if (!productId) {
+      res.status(404).json({ error: "could not find product" });
+    }
+
+    res.status(200).json(productId);
+  } catch (error) {
+    res.status(500).json({ error: "Server error, could not update products" });
+  }
+});
+
+/* The code block `router.delete("/:id", async (req, res) => { ... })` is defining a route handler for
+a DELETE request to the URL "/:id" of the server. This route is used to delete a specific product
+from the database. */
+// Delete api endpoint
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deleteProduct = product.findByIdAndDelete(id);
+
+    if (!deleteProduct) {
+      res.status(404).json({ error: "could not find product" });
+    }
+
+    res.status(200).json({ message: "product deleted" });
+  } catch (error) {
+    res.status(500).json({ error: "Server error, could not update products" });
+  }
+});
+
 export default router;
