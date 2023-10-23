@@ -1,12 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
 import { DATABASE_URL, PORT } from "./config.js";
+import productRoute from "./routes/productRoute.js";
 
 const app = express();
+app.use(express.json());
 
-// app.get("/", (req, res) => {
-//   return res.status(200).send(`Port running on ${PORT}`);
-// });
+app.use("/products", productRoute);
 
 mongoose
   .connect(DATABASE_URL)
