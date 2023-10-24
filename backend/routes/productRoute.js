@@ -18,6 +18,12 @@ router.post("/", async (req, res) => {
         .json({ error: "Name, quantity, and price are required fields" });
     }
 
+    if (typeof quantity !== "number" && typeof price !== "number") {
+      return res
+        .status(405)
+        .json({ error: "quantity and price are numeric fields" });
+    }
+
     // Create a new product object
     const newProduct = {
       name,
@@ -42,7 +48,7 @@ request to the root URL ("/") of the server. */
 router.get("/", async (req, res) => {
   try {
     /* `const products = await product.find({});` is querying the database to find all products. */
-    const products = await product.find({});
+    const products = await product.find({}, { name: 1, price: 1, image: 1 });
 
     res.status(200).json(products);
   } catch (error) {
