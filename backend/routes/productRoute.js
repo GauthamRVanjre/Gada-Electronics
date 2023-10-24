@@ -48,7 +48,10 @@ request to the root URL ("/") of the server. */
 router.get("/", async (req, res) => {
   try {
     /* `const products = await product.find({});` is querying the database to find all products. */
-    const products = await product.find({}, { name: 1, price: 1, image: 1 });
+    const products = await product.find(
+      {},
+      { name: 1, price: 1, image: 1, quantity: 1 }
+    );
 
     res.status(200).json(products);
   } catch (error) {
