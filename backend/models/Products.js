@@ -21,6 +21,9 @@ const productSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+  category: {
+    type: String,
+  },
 });
 
 export const product = mongoose.model("product", productSchema);

@@ -35,7 +35,7 @@ export const columns: ColumnDef<Admin>[] = [
   },
   {
     accessorKey: "price",
-    header: () => <div className="text-right">Price</div>,
+    header: () => <div>Price</div>,
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("price"));
       const formatted = new Intl.NumberFormat("en-IN", {

@@ -9,7 +9,7 @@ POST request to the root URL ("/") of the server. */
 router.post("/", async (req, res) => {
   try {
     /* This code block is handling a POST request to create a new product. */
-    const { name, quantity, price, image, description } = req.body;
+    const { name, quantity, price, image, description, category } = req.body;
 
     // Check if required fields (name, quantity, price) are provided
     if (!name || !quantity || !price) {
@@ -31,6 +31,7 @@ router.post("/", async (req, res) => {
       price,
       image,
       description,
+      category,
     };
 
     // Save the product to the database
