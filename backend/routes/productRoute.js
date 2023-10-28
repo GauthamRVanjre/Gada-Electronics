@@ -9,7 +9,7 @@ POST request to the root URL ("/") of the server. */
 router.post("/", async (req, res) => {
   try {
     /* This code block is handling a POST request to create a new product. */
-    const { name, quantity, price, image, description, category } = req.body;
+    let { name, quantity, price, image, description, category } = req.body;
 
     // Check if required fields (name, quantity, price) are provided
     if (!name || !quantity || !price) {
@@ -18,10 +18,12 @@ router.post("/", async (req, res) => {
         .json({ error: "Name, quantity, and price are required fields" });
     }
 
-    if (typeof quantity !== "number" && typeof price !== "number") {
-      return res
-        .status(405)
-        .json({ error: "quantity and price are numeric fields" });
+    if (typeof quantity !== "number") {
+      quantity = parseFloat(quantity);
+    }
+
+    if (typeof price !== "number") {
+      price = parseFloat(price);
     }
 
     // Create a new product object
@@ -39,7 +41,7 @@ router.post("/", async (req, res) => {
 
     res.status(200).json(savedProduct); // Respond with the saved product
   } catch (error) {
-    res.status(500).json({ error: "Server error, product not saved" });
+    res.status(500).json({ error: `${error}` });
   }
 });
 

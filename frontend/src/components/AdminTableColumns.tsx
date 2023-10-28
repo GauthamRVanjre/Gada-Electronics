@@ -27,7 +27,16 @@ export const columns: ColumnDef<Admin>[] = [
   },
   {
     accessorKey: "image",
-    header: "image",
+    header: () => <div>image</div>,
+    cell: ({ row }) => {
+      return (
+        <img
+          className="h-32 w-32 sm:h-24 sm:w-24 "
+          src={row.original.image}
+          alt="product image"
+        />
+      );
+    },
   },
   {
     accessorKey: "quantity",
@@ -37,13 +46,8 @@ export const columns: ColumnDef<Admin>[] = [
     accessorKey: "price",
     header: () => <div>Price</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("price"));
-      const formatted = new Intl.NumberFormat("en-IN", {
-        style: "currency",
-        currency: "INR",
-      }).format(amount);
-
-      return <div className="text-right font-medium">{formatted}</div>;
+      const price = row.original.price;
+      return <div>₹ {price}</div>;
     },
   },
   {
