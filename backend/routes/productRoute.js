@@ -51,10 +51,7 @@ request to the root URL ("/") of the server. */
 router.get("/", async (req, res) => {
   try {
     /* `const products = await product.find({});` is querying the database to find all products. */
-    const products = await product.find(
-      {},
-      { name: 1, price: 1, image: 1, quantity: 1 }
-    );
+    const products = await product.find({});
 
     res.status(200).json(products);
   } catch (error) {
@@ -88,16 +85,15 @@ from the database. */
 router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
+    const deletedProduct = await product.findByIdAndDelete(id);
 
-    const deleteProduct = product.findByIdAndDelete(id);
-
-    if (!deleteProduct) {
-      res.status(404).json({ error: "could not find product" });
+    if (!deletedProduct) {
+      return res.status(404).json({ error: "Could not find product" });
     }
 
-    res.status(200).json({ message: "product deleted" });
+    res.status(200).json({ message: "Product deleted" });
   } catch (error) {
-    res.status(500).json({ error: "Server error, could not update products" });
+    res.status(500).json({ error: "Server error, could not delete product" });
   }
 });
 

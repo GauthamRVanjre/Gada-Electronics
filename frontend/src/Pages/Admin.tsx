@@ -13,7 +13,6 @@ const Admin = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios.get("http://localhost:5555/products");
-      console.log(response.data);
       setProducts(response.data);
     } catch (error) {
       console.log(error);

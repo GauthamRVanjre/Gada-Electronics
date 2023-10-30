@@ -6,7 +6,7 @@ const ProductFormValidator = z.object({
   price: z.string().nonempty(),
   image: z.string().nonempty("image is required"),
   description: z.string(),
-  category: z.string(),
+  category: z.string().nonempty("category is required"),
 });
 
 export default ProductFormValidator;

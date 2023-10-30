@@ -1,16 +1,11 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "./ui/button";
+import EditProductTableForm from "./EditProductTableForm";
+import { productTypes } from "@/lib/types/product";
+import DeleteProductDialog from "./DeleteProductDialog";
 
-export type Admin = {
-  id: string;
-  name: string;
-  quantity: string;
-  image: string;
-  price: string;
-};
-
-export const columns: ColumnDef<Admin>[] = [
+export const columns: ColumnDef<productTypes>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -53,7 +48,12 @@ export const columns: ColumnDef<Admin>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      return <div>Actions - {row.id}</div>;
+      return (
+        <div className="flex flex-row gap-4 w-[210px]">
+          <EditProductTableForm product={row.original} />
+          <DeleteProductDialog product={row.original} />
+        </div>
+      );
     },
   },
 ];
