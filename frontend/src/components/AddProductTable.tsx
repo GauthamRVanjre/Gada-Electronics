@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -30,12 +30,11 @@ import ProductFormValidator from "@/lib/validations/productFormValidator";
 import { Button } from "./ui/button";
 import CustomFormField from "./customFormField";
 import { ScrollArea } from "./ui/scroll-area";
-import { useToast } from "./ui/use-toast";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const AddProductTableForm = () => {
   const [loading, setLoading] = useState(false);
-  const { toast } = useToast();
   const form = useForm<z.infer<typeof ProductFormValidator>>({
     defaultValues: {
       name: "",
@@ -74,27 +73,14 @@ const AddProductTableForm = () => {
       });
 
       if (response.status === 200) {
-        toast({
-          variant: "default",
-          title: "Product created successfully",
-          description: "Product is created successfully",
-        });
+        toast.success("Product added successfully");
       } else {
-        toast({
-          variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description: "There was a problem with your request.",
-        });
+        toast.error("Something went wrong");
       }
     } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "There was a problem with your request.",
-      });
+      toast.error(`${error}`);
     } finally {
       form.reset();
-
       setLoading(false);
     }
   }
