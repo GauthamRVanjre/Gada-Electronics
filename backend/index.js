@@ -2,7 +2,12 @@ import express from "express";
 import mongoose from "mongoose";
 import { DATABASE_URL, PORT } from "./config.js";
 import productRoute from "./routes/productRoute.js";
+import userRoute from "./routes/userRoute.js";
+import session from "express-session";
 import cors from "cors";
+import passport from "passport";
+import { Strategy as LocalStrategy } from "passport-local";
+import { User } from "./models/Users.js";
 
 const app = express();
 app.use(express.json());
@@ -16,8 +21,25 @@ app.use(
   })
 );
 
+app.use(
+  session({
+    secret: "secret-key",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // allow express to navigate to products route
 app.use("/products", productRoute);
+
+app.use("/users", userRoute);
 
 mongoose
   .connect(DATABASE_URL)
