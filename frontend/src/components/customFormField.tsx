@@ -34,12 +34,31 @@ const CustomFormField: React.FC<customFormFieldProps> = ({
           <FormItem>
             <FormLabel>{formLabel}</FormLabel>
             <FormControl>
-              <Input
-                className="ml-1 w-[300px]"
-                placeholder={placeholder}
-                type={fieldType}
-                {...field}
-              />
+              {fieldType === "number" ? (
+                <Input
+                  className="ml-1 w-[300px]"
+                  placeholder={placeholder}
+                  type={fieldType}
+                  {...field}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value === "") {
+                      field.onChange(0);
+                    } else if (Number.isNaN(Number(value))) {
+                      field.onChange(0);
+                    } else {
+                      field.onChange(Number(value));
+                    }
+                  }}
+                />
+              ) : (
+                <Input
+                  className="ml-1 w-[300px]"
+                  placeholder={placeholder}
+                  type={fieldType}
+                  {...field}
+                />
+              )}
             </FormControl>
             <FormMessage />
           </FormItem>

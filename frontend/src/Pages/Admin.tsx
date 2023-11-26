@@ -1,5 +1,5 @@
-import { DataTable } from "@/components/AdminDataTable";
-import { columns } from "@/components/AdminTableColumns";
+import { DataTable } from "@/components/DataTable";
+import { columns } from "@/components/ProductTableColumns";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useEffect, useState } from "react";

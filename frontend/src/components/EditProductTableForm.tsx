@@ -86,7 +86,7 @@ const EditProductTableForm: React.FC<EditProductTableFormProps> = ({
                 name="quantity"
                 formLabel="Enter Product quantity"
                 placeholder="quantity"
-                fieldType="text"
+                fieldType="number"
               />
 
               <CustomFormField
@@ -94,7 +94,7 @@ const EditProductTableForm: React.FC<EditProductTableFormProps> = ({
                 name="price"
                 formLabel="Enter Product price"
                 placeholder="price"
-                fieldType="text"
+                fieldType="number"
               />
 
               <Button disabled={loading} type="submit">
