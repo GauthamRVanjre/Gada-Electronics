@@ -12,23 +12,39 @@ import { Button } from "@/components/ui/button";
 
 import { useState } from "react";
 import toast from "react-hot-toast";
+import axios, { AxiosResponse } from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
-  const [username, setusername] = useState("");
+  const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleLoginFormSubmit = () => {
-    if (username.length === 0 || password.length === 0) {
-      toast.error("Please enter username address and password");
+  const handleLoginFormSubmit = async () => {
+    if (email.length === 0 || password.length === 0) {
+      toast.error("Please enter email address and password");
       return;
-    } else if (!username.includes("@gmail.com")) {
-      toast.error("Please enter a valid username address");
+    } else if (!email.includes("@gmail.com")) {
+      toast.error("Please enter a valid email address");
       return;
     } else {
-      toast.success("username and password are valid");
+      toast.success("email and password are valid");
     }
 
-    console.log("username and password are", username, password);
+    await axios
+      .post("http://localhost:5555/users/login", {
+        username: email,
+        password,
+      })
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      .then((response: AxiosResponse) => {
+        toast.success("Login successfull");
+        navigate("/");
+      })
+      .catch((error: { response: { data: { message: string } } }) => {
+        toast.error(error.response.data.message);
+        console.log(error.response?.data.message);
+      });
   };
 
   return (
@@ -37,16 +53,16 @@ const LoginForm = () => {
         <CardHeader>
           <CardTitle>Login</CardTitle>
           <CardDescription>
-            Login to your account by entering your username address and password
+            Login to your account by entering your email address and password
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-2">
           <div className="space-y-1">
-            <Label htmlFor="username">username address</Label>
+            <Label htmlFor="email">email address</Label>
             <Input
-              id="username"
-              type="username"
-              onChange={(e) => setusername(e.target.value)}
+              id="email"
+              type="email"
+              onChange={(e) => setemail(e.target.value)}
               required
             />
           </div>
