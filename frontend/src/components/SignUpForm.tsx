@@ -15,13 +15,14 @@ import toast from "react-hot-toast";
 import axios, { AxiosResponse } from "axios";
 
 const SignUpForm = () => {
+  const [username, setUsername] = useState("");
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
   const [adminCode, setAdminCode] = useState("");
 
   const handleLoginFormSubmit = async () => {
-    if (email.length === 0 || password.length === 0) {
-      toast.error("Please enter email address and password");
+    if (email.length === 0 || password.length === 0 || username.length === 0) {
+      toast.error("Please enter email address, password or username");
       return;
     } else if (!email.includes("@gmail.com")) {
       toast.error("Please enter a valid email address");
@@ -38,13 +39,18 @@ const SignUpForm = () => {
 
     await axios
       .post("http://localhost:5555/users/register", {
-        username: email,
+        username,
+        email,
         password,
         adminCode,
       })
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .then((response: AxiosResponse) => {
         toast.success("Sign up successfull");
+        setAdminCode("");
+        setUsername("");
+        setPassword("");
+        setemail("");
       })
       .catch((error: { response: { data: { message: string } } }) => {
         toast.error(error.response.data.message);
@@ -62,6 +68,16 @@ const SignUpForm = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-2">
+          <div className="space-y-1">
+            <Label htmlFor="username">Username</Label>
+            <Input
+              id="username"
+              type="text"
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter username"
+              required
+            />
+          </div>
           <div className="space-y-1">
             <Label htmlFor="email">Email address</Label>
             <Input
