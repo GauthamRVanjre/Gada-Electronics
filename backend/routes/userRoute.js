@@ -5,13 +5,13 @@ import passport from "passport";
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
-  const { username, password, adminCode } = req.body;
+  const { username, password, adminCode, email } = req.body;
 
   // Check if the registration includes an admin code
   const isAdmin = adminCode === "admin";
 
   try {
-    await User.register(new User({ username, isAdmin }), password);
+    await User.register(new User({ username, isAdmin, email }), password);
 
     passport.authenticate("local")(req, res, () => {
       return res.status(200).send({ message: "User is registered." });
@@ -39,6 +39,8 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
     id: req.user._id,
     username: req.user.username,
     isAdmin: req.user.isAdmin,
+    email: req.user.email,
+    address: req.user.address,
   };
 
   // Return a JSON response indicating successful login
