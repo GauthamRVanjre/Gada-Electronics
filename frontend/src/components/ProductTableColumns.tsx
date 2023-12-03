@@ -26,7 +26,7 @@ export const columns: ColumnDef<productTypes>[] = [
     cell: ({ row }) => {
       return (
         <img
-          className="h-32 w-32 sm:h-24 sm:w-24 "
+          className="w-20 h-20 object-cover lg:h-40 lg:w-40"
           src={row.original.image}
           alt="product image"
         />
