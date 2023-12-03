@@ -1,5 +1,7 @@
 // Home.tsx
 import Navbar from "@/components/Navbar";
+import ProductsListingBar from "@/components/ProductsListingBar";
+import Sidebar from "@/components/Sidebar";
 import React from "react";
 
 const Home: React.FC = () => {
@@ -19,22 +21,22 @@ const Home: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto mt-8 flex">
+      <div className="container mx-auto mt-8 flex flex-col md:flex-row">
         {/* Sidebar */}
-        <aside className="w-1/4 pr-8">
-          {/* Add your filter options and categories here */}
-          <div className="mb-4">
-            <h2 className="text-lg font-bold mb-2">Price Range</h2>
-            {/* Add price range filters */}
-          </div>
-          <div>
-            <h2 className="text-lg font-bold mb-2">Categories</h2>
-            {/* Add category filters */}
-          </div>
-        </aside>
+        {/* Sidebar (For larger screens) */}
+        <div className="md:w-1/4 md:pr-8 hidden md:block">
+          <Sidebar />
+        </div>
+
+        {/* Sidebar (for smaller screens) */}
+        <div className="md:hidden mb-4">
+          <Sidebar />
+        </div>
 
         {/* Product Listing */}
-        <div className="w-3/4">{/* Add your product listing here */}</div>
+        <div className="w-3/4">
+          <ProductsListingBar />
+        </div>
       </div>
     </div>
   );
