@@ -8,7 +8,7 @@ const Navbar = () => {
         <div className="container mx-auto flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="text-2xl font-bold">
-            Your Logo
+            GADA ELECTRONICS
           </Link>
 
           {/* Navigation Links */}
@@ -24,6 +24,9 @@ const Navbar = () => {
             </Link>
             <Link to="/admin" className="hover:text-gray-300">
               Admin
+            </Link>
+            <Link to="/login" className="hover:text-gray-300">
+              Login
             </Link>
           </div>
         </div>

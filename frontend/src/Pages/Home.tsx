@@ -13,10 +13,10 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <div className="bg-gray-800 text-white py-16">
         <div className="container mx-auto text-center">
-          <h1 className="text-4xl font-bold mb-4">Welcome to Our Shop</h1>
-          <p className="text-lg">
-            Discover a wide range of high-quality products.
-          </p>
+          <h1 className="text-4xl font-bold mb-4">
+            Welcome to Gada Electronics
+          </h1>
+          <p className="text-lg">Best price on Best Brand</p>
         </div>
       </div>
 
