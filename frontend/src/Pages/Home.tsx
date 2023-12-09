@@ -7,7 +7,6 @@ import React, { useState } from "react";
 const Home: React.FC = () => {
   const [price, setPrice] = useState([500]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-
   // Function to handle checkbox change
   const handleCheckboxChange = (categoryId: string) => {
     setSelectedCategories((prevSelectedCategories) => {
@@ -61,7 +60,10 @@ const Home: React.FC = () => {
 
         {/* Product Listing */}
         <div className="w-3/4">
-          <ProductsListingBar />
+          <ProductsListingBar
+            price={price[0]}
+            selectedCategories={selectedCategories}
+          />
         </div>
       </div>
     </div>

@@ -50,6 +50,17 @@ router.post("/", async (req, res) => {
 request to the root URL ("/") of the server. */
 router.get("/", async (req, res) => {
   try {
+    const { price, selectedCategories } = req.query;
+
+    let query = {
+      price: 0,
+    };
+
+    if (price) {
+      const parsedPrice = parseInt(price, 10);
+      query.price = { $lte: parsedPrice };
+    }
+
     /* `const products = await product.find({});` is querying the database to find all products. */
     const products = await product.find({});
 
