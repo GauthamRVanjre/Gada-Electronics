@@ -28,7 +28,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <p className="text-gray-800 mt-2">
           {product.description.slice(0, 50)}...
         </p>
-        <div className="flex flex-row justify-between mt-4">
+        <div className="flex lg:flex-row flex-col justify-between mt-4">
           <p className="text-white mt-2 p-2 w-fit bg-gray-800">
             #{product.category}
           </p>

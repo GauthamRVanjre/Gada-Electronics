@@ -60,6 +60,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           return (
             <div className="flex flex-row items-stretch mb-2">
               <Checkbox
+                key={category.id}
                 id={category.id}
                 checked={selectedCategories.includes(category.id)}
                 onCheckedChange={() => handleCheckboxChange(category.id)}

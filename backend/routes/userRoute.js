@@ -14,7 +14,16 @@ router.post("/register", async (req, res) => {
     await User.register(new User({ username, isAdmin, email }), password);
 
     passport.authenticate("local")(req, res, () => {
-      return res.status(200).send({ message: "User is registered." });
+      req.session.user = {
+        id: req.user._id,
+        username: req.user.username,
+        isAdmin: req.user.isAdmin,
+        email: req.user.email,
+        address: req.user.address,
+      };
+      return res
+        .status(200)
+        .send({ message: "User is registered.", user: req.session.user });
     });
   } catch (err) {
     console.error(err);

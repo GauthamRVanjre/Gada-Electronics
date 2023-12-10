@@ -1,9 +1,26 @@
 import UserContext from "@/context/userContext";
+import axios from "axios";
 import { useContext } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const { user } = useContext(UserContext);
+  const { user, logout } = useContext(UserContext);
+
+  // logout function
+  const handleLogOut = async () => {
+    try {
+      const response = await axios.get("http://localhost:5555/users/logout");
+      if (response.status === 200) {
+        logout();
+        toast.success("User logged out");
+      }
+    } catch (error) {
+      toast.error(`something went wrong ${error}`);
+    }
+  };
+
+  console.log("user", user);
 
   return (
     <>
@@ -31,7 +48,12 @@ const Navbar = () => {
               </Link>
             )}
             {user && (
-              <p className="hover:text-gray-300 cursor-pointer">Logout</p>
+              <p
+                onClick={handleLogOut}
+                className="hover:text-gray-300 cursor-pointer"
+              >
+                Logout
+              </p>
             )}
             {!user && (
               <Link to="/login" className="hover:text-gray-300">
