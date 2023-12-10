@@ -1,7 +1,10 @@
-import React from "react";
+import UserContext from "@/context/userContext";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <>
       <nav className="bg-gray-900 text-white p-4">
@@ -22,12 +25,19 @@ const Navbar = () => {
             <Link to="/checkout" className="hover:text-gray-300">
               Checkout
             </Link>
-            <Link to="/admin" className="hover:text-gray-300">
-              Admin
-            </Link>
-            <Link to="/login" className="hover:text-gray-300">
-              Login
-            </Link>
+            {user && user.isAdmin && (
+              <Link to="/admin" className="hover:text-gray-300">
+                Admin
+              </Link>
+            )}
+            {user && (
+              <p className="hover:text-gray-300 cursor-pointer">Logout</p>
+            )}
+            {!user && (
+              <Link to="/login" className="hover:text-gray-300">
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </nav>

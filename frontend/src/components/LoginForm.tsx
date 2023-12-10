@@ -10,16 +10,20 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import axios, { AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
+import UserContext from "@/context/userContext";
 
 const LoginForm = () => {
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
+
+  // context user
+  const { login } = useContext(UserContext);
 
   const handleLoginFormSubmit = async () => {
     if (email.length === 0 || password.length === 0 || username.length === 0) {
@@ -40,7 +44,8 @@ const LoginForm = () => {
       .then((response: AxiosResponse) => {
         toast.success("Login successfull");
         console.log(response.data.user);
-        // navigate("/");
+        login(response.data.user);
+        navigate("/");
       })
       .catch((error: { response: { data: { message: string } } }) => {
         toast.error(error.response.data.message);
