@@ -20,8 +20,6 @@ const Navbar = () => {
     }
   };
 
-  console.log("user", user);
-
   return (
     <>
       <nav className="bg-gray-900 text-white p-4">
