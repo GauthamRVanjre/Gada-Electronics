@@ -7,3 +7,11 @@ export type productTypes = {
   image: string;
   price: number;
 };
+
+export type cartProduct = {
+  _id: string;
+  name: string;
+  quantity: number;
+  image: string;
+  price: number;
+};

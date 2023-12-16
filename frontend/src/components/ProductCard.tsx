@@ -1,10 +1,40 @@
+import UserContext from "@/context/userContext";
 import { productTypes } from "@/lib/types/product";
-import React from "react";
+import { addToCart } from "@/redux/cartSlice";
+import React, { useContext } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
   product: productTypes;
 }
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  // navigate to navigate the user to login if he is not logged in
+  const navigate = useNavigate();
+
+  // user context to check if user is logged in
+  const { user } = useContext(UserContext);
+
+  // redux dispatch function to add the product to the cart
+  const dispatch = useDispatch();
+
+  // function to handle product clicks(add to cart)
+  const handleProductClick = (product: productTypes) => {
+    if (user === null) {
+      navigate("/login");
+    } else {
+      dispatch(
+        addToCart({
+          _id: product._id,
+          name: product.name,
+          quantity: 1,
+          image: product.image,
+          price: product.price,
+        })
+      );
+    }
+  };
+
   return (
     <div
       key={product._id}
@@ -32,7 +62,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <p className="text-white mt-2 p-2 w-fit bg-gray-800">
             #{product.category}
           </p>
-          <p className="text-white mt-2 bg-blue-600 p-2 w-fit">Add to Cart</p>
+          <p
+            onClick={() => handleProductClick(product)}
+            className="text-white mt-2 bg-blue-600 p-2 w-fit"
+          >
+            Add to Cart
+          </p>
         </div>
       </div>
       {/* Add buttons or additional actions if needed */}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SetStateAction, useEffect } from "react";
 import { createContext, ReactNode } from "react";
 
 interface User {
@@ -27,12 +27,23 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [user, setUser] = React.useState<User | null>(null);
 
+  console.log("user in context", user);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser !== null) {
+      setUser(JSON.parse(storedUser) as User);
+    }
+  }, []);
+
   const login = (userData: User) => {
-    setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
+    setUser(localStorage.getItem("user") as SetStateAction<User | null>);
   };
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem("user");
   };
 
   return (

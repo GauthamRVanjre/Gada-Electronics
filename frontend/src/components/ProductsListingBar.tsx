@@ -42,6 +42,7 @@ const ProductsListingBar: React.FC<ProductsListingProps> = ({
       {filteredProducts.map((product) => (
         <ProductCard key={product._id} product={product} />
       ))}
+      {filteredProducts.length === 0 && <div>No products found</div>}
     </div>
   );
 };
