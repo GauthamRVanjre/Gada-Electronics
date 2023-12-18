@@ -4,6 +4,8 @@ import { DATABASE_URL, PORT } from "./config.js";
 import productRoute from "./routes/productRoute.js";
 import userRoute from "./routes/userRoute.js";
 import session from "express-session";
+import orderRoute from "./routes/orderRoute.js";
+import orderItemsRoute from "./routes/orderItemsRoute.js";
 import cors from "cors";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
@@ -40,6 +42,10 @@ passport.deserializeUser(User.deserializeUser());
 app.use("/products", productRoute);
 
 app.use("/users", userRoute);
+
+app.use("/orders", orderRoute);
+
+app.use("/orderItems", orderItemsRoute);
 
 mongoose
   .connect(DATABASE_URL)
