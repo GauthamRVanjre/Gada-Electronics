@@ -2,13 +2,19 @@
 
 import express from "express";
 import { Order } from "../models/Orders.js";
+import { product } from "../models/Products.js";
 
 const router = express.Router();
 
 // Get all orders
 router.get("/", async (req, res) => {
   try {
-    const orders = await Order.find().populate("user"); // Populate user details
+    const orders = await Order.find()
+      .populate("user")
+      .populate({
+        path: "orderItems",
+        populate: { path: "Products" },
+      });
     res.json(orders);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -20,6 +26,7 @@ router.post("/", async (req, res) => {
   const order = new Order({
     user: req.body.user,
     totalAmount: req.body.totalAmount,
+    orderItems: req.body.orderItems,
   });
 
   try {
