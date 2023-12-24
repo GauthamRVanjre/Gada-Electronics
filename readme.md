@@ -21,11 +21,7 @@ Managing product stock is a common challenge for many small businesses. Gada Ele
 
 - **Lack of a centralized system for stock information:** Small businesses often struggle with scattered data and lack a centralized system for stock information. Gada Electronics offers a centralized platform where all stock-related data is stored, making it easily accessible and manageable.
 
-- **Customizable Alerts:** Receive customizable alerts for low stock levels, ensuring timely reordering of products to prevent disruptions in business operations.
-
 - **User-Friendly Interface:** The intuitive and user-friendly interface of Gada Electronics makes it easy for both admin and regular users to navigate through the system.
-
-- **Sales Analytics:** Gain insights into product sales, popular items, and trends through built-in analytics features, aiding in informed decision-making.
 
 - **Secure Authentication:** Protect your data with secure authentication mechanisms. The admin section is accessible only to authorized users, ensuring data privacy and integrity.
 
@@ -38,7 +34,7 @@ Gada Electronics is here to streamline these processes, making it easier for bus
 The admin section is accessible only to authorized admin users. It includes features such as:
 
 - **Product Management:** Add, edit, or remove products from the inventory.
-- **Stock Tracking:** Monitor stock levels and receive alerts for low stock.
+- **Stock Tracking:** Monitor stock levels.
 - **User Management:** Manage user accounts and permissions.
 
 ### User Section
