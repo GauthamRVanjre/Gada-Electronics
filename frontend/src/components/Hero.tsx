@@ -1,6 +1,6 @@
 import React from "react";
 
-const Carousel = () => {
+const Hero = () => {
   return (
     <div className="bg-gray-800 text-white py-16">
       <div className="container mx-auto text-center">
@@ -11,4 +11,4 @@ const Carousel = () => {
   );
 };
 
-export default Carousel;
+export default Hero;

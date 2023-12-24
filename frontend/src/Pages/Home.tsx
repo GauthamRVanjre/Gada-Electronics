@@ -1,5 +1,5 @@
 // Home.tsx
-import Carousel from "@/components/Carousel";
+import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import ProductsListingBar from "@/components/ProductsListingBar";
 import Sidebar from "@/components/Sidebar";
@@ -26,8 +26,8 @@ const Home: React.FC = () => {
       {/* Navbar */}
       <Navbar />
 
-      {/* Carousel Section */}
-      <Carousel />
+      {/* Hero Section */}
+      <Hero />
 
       {/* Main Content */}
       <div className="container mx-auto mt-8 flex flex-col md:flex-row">

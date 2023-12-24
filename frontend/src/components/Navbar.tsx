@@ -23,14 +23,14 @@ const Navbar = () => {
   return (
     <>
       <nav className="bg-gray-900 text-white p-4">
-        <div className="container mx-auto flex items-center justify-between">
+        <div className="container mx-auto flex lg:items-center flex-wrap justify-between lg:flex-row flex-col">
           {/* Logo */}
           <Link to="/" className="text-2xl font-bold">
             GADA ELECTRONICS
           </Link>
 
           {/* Navigation Links */}
-          <div className="flex space-x-4">
+          <div className="flex flex-col pt-4 lg:pt-0 lg:flex-row lg:items-center lg:space-x-4">
             <Link to="/" className="hover:text-gray-300">
               Home
             </Link>
