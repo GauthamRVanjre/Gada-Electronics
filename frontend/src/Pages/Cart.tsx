@@ -8,11 +8,13 @@ import axios from "axios";
 import { cartItemsForBackendType } from "@/lib/types/product";
 import UserContext from "@/context/userContext";
 import toast from "react-hot-toast";
+import { Loader2 } from "lucide-react";
 
 const Cart = () => {
   const cart = useSelector((state: RootState) => state.cart);
   const [cartTotal, setCartTotal] = useState(0);
   const [cartItems, setCartItems] = useState<cartItemsForBackendType[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useContext(UserContext);
 
   console.log("cart items", cartItems);
@@ -38,6 +40,7 @@ const Cart = () => {
   }
 
   const handleOrderPlacement = async () => {
+    setIsLoading(true);
     constructArrayForBackend();
     try {
       const res = await axios.post(
@@ -45,6 +48,10 @@ const Cart = () => {
         cartItems
       );
       const arrayIDs = res.data;
+      console.log(arrayIDs);
+      if (arrayIDs.length < 0) {
+        throw new Error("Ordered Items cannot be empty");
+      }
       const orderPlace = await axios({
         method: "POST",
         url: "http://localhost:5555/orders",
@@ -58,6 +65,8 @@ const Cart = () => {
       toast.success(`Order placed successfully with id ${orderPlace.data._id}`);
     } catch (error) {
       toast.error("order could not be placed");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -69,9 +78,7 @@ const Cart = () => {
       {/* cart page content */}
       <div className="w-auto flex flex-col items-center">
         <div className="mt-4">
-          <h2 className="text-xl font-semibold mb-4 text-center">
-            Shopping Cart
-          </h2>
+          <h2 className="text-xl font-semibold mb-4 text-center">Cart Items</h2>
           {cart.items.length === 0 ? (
             <p>Your cart is empty.</p>
           ) : (
@@ -103,12 +110,23 @@ const Cart = () => {
                 </tbody>
               </table>
               <div className="flex flex-row justify-between m-4">
-                <div className="flex flex-row w-[150px] justify-between ml-4">
+                <div className="flex flex-row w-[160px] justify-between ml-4">
                   <div className="bg-black text-white p-2">Total Price: </div>
                   <div className="p-2">{cartTotal}</div>
                 </div>
-                <Button className="mr-2" onClick={handleOrderPlacement}>
-                  Place Order
+                <Button
+                  disabled={isLoading}
+                  className="mr-2"
+                  onClick={handleOrderPlacement}
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Please wait
+                    </>
+                  ) : (
+                    "Place Order"
+                  )}
                 </Button>
               </div>
             </div>

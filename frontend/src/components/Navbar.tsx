@@ -37,9 +37,6 @@ const Navbar = () => {
             <Link to="/cart" className="hover:text-gray-300">
               Cart
             </Link>
-            <Link to="/checkout" className="hover:text-gray-300">
-              Checkout
-            </Link>
             {user && user.isAdmin && (
               <Link to="/admin" className="hover:text-gray-300">
                 Admin
