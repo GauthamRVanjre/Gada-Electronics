@@ -4,6 +4,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import ProductCard from "./ProductCard";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store/store";
 
 interface ProductsListingProps {
   price: number;
@@ -15,6 +17,8 @@ const ProductsListingBar: React.FC<ProductsListingProps> = ({
   selectedCategories,
 }) => {
   const [products, setProducts] = useState<productTypes[]>([]);
+  const cartProducts = useSelector((state: RootState) => state.cart.items);
+  console.log(cartProducts);
 
   const fetchProducts = async () => {
     await axios
@@ -40,7 +44,11 @@ const ProductsListingBar: React.FC<ProductsListingProps> = ({
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
       {filteredProducts.map((product) => (
-        <ProductCard key={product._id} product={product} />
+        <ProductCard
+          key={product._id}
+          product={product}
+          cartProducts={cartProducts}
+        />
       ))}
       {filteredProducts.length === 0 && <div>No products found</div>}
     </div>

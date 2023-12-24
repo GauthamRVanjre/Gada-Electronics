@@ -1,16 +1,33 @@
 import UserContext from "@/context/userContext";
-import { productTypes } from "@/lib/types/product";
-import { addToCart } from "@/redux/cartSlice";
-import React, { useContext } from "react";
+import { cartProduct, productTypes } from "@/lib/types/product";
+import { addToCart, subtractFromCart } from "@/redux/cartSlice";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Button } from "./ui/button";
 
 interface ProductCardProps {
   product: productTypes;
+  cartProducts: cartProduct[];
 }
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, cartProducts }) => {
   // navigate to navigate the user to login if he is not logged in
   const navigate = useNavigate();
+
+  // check if the product exists in the cart
+  const productExists = cartProducts.find((item) => item._id === product._id);
+
+  // product quantity tracker
+  const [productQuantityExceeds, setProductQuantityExceeds] = useState(false);
+
+  useEffect(() => {
+    // check if the product exceed the specified quantity
+    if (productExists && productExists?.quantity >= product.quantity) {
+      setProductQuantityExceeds(true);
+    } else {
+      setProductQuantityExceeds(false);
+    }
+  }, [productExists?.quantity]);
 
   // user context to check if user is logged in
   const { user } = useContext(UserContext);
@@ -62,12 +79,31 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <p className="text-white mt-2 p-2 w-fit bg-gray-800">
             #{product.category}
           </p>
-          <p
-            onClick={() => handleProductClick(product)}
-            className="text-white mt-2 bg-blue-600 p-2 w-fit"
-          >
-            Add to Cart
-          </p>
+          {!productExists ? (
+            <p
+              onClick={() => handleProductClick(product)}
+              className="text-white mt-2 bg-blue-600 p-2 w-fit"
+            >
+              Add to Cart
+            </p>
+          ) : (
+            <div className="flex items-center space-x-2">
+              <Button
+                className="bg-gray-800 text-white px-2 py-1"
+                onClick={() => dispatch(subtractFromCart(product._id))}
+              >
+                -
+              </Button>
+              <span>{productExists?.quantity}</span>
+              <Button
+                disabled={productQuantityExceeds}
+                className="bg-gray-800 text-white px-2 py-1"
+                onClick={() => handleProductClick(product)}
+              >
+                +
+              </Button>
+            </div>
+          )}
         </div>
       </div>
       {/* Add buttons or additional actions if needed */}
