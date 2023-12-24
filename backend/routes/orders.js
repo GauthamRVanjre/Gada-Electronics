@@ -9,12 +9,7 @@ const router = express.Router();
 // Get all orders
 router.get("/", async (req, res) => {
   try {
-    const orders = await Order.find()
-      .populate("user")
-      .populate({
-        path: "orderItems",
-        populate: { path: "Products" },
-      });
+    const orders = await Order.find().populate("user").populate("orderItems");
     res.json(orders);
   } catch (error) {
     res.status(500).json({ message: error.message });

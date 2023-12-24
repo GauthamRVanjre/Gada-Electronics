@@ -15,3 +15,8 @@ export type cartProduct = {
   image: string;
   price: number;
 };
+
+export type cartItemsForBackendType = {
+  product: string;
+  quantity: number;
+};
