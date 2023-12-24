@@ -9,6 +9,14 @@ import { cartItemsForBackendType } from "@/lib/types/product";
 import UserContext from "@/context/userContext";
 import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const Cart = () => {
   const cart = useSelector((state: RootState) => state.cart);
@@ -83,32 +91,23 @@ const Cart = () => {
             <p>Your cart is empty.</p>
           ) : (
             <div>
-              <table className="divide-y divide-gray-200 lg:w-[950px] min-w-full">
-                <thead className="bg-gray-500">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
-                      Name
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
-                      Image
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
-                      Price
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
-                      Quantity
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
-                      Delete Product
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+              <Table className="divide-y divide-gray-200 lg:w-[950px] min-w-full">
+                <TableCaption>Cart Items</TableCaption>
+                <TableHeader className="bg-gray-500">
+                  <TableRow className="px-6 py-3 text-left  text-xs font-medium bg-gray-900 uppercase tracking-wider">
+                    <TableHead className="text-white">Name</TableHead>
+                    <TableHead className="text-white">Image</TableHead>
+                    <TableHead className="text-white">Price</TableHead>
+                    <TableHead className="text-white">Quantity</TableHead>
+                    <TableHead className="text-white">Delete Product</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody className="bg-white divide-y divide-gray-200">
                   {cart.items.map((item) => (
                     <CartItemsCard item={item} />
                   ))}
-                </tbody>
-              </table>
+                </TableBody>
+              </Table>
               <div className="flex flex-row justify-between m-4">
                 <div className="flex flex-row w-[160px] justify-between ml-4">
                   <div className="bg-black text-white p-2">Total Price: </div>

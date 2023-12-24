@@ -6,6 +6,7 @@ import {
   subtractFromCart,
   addToCart,
 } from "../redux/cartSlice";
+import { TableRow, TableCell } from "./ui/table";
 
 interface CartItemsCardProps {
   item: cartProduct;
@@ -14,17 +15,19 @@ const CartItemsCard: React.FC<CartItemsCardProps> = ({ item }) => {
   const dispatch = useDispatch();
 
   return (
-    <tr key={item._id}>
-      <td className="px-6 py-4 whitespace-nowrap">{item.name}</td>
-      <td className="px-6 py-4 whitespace-nowrap">
+    <TableRow key={item._id}>
+      <TableCell className="px-6 py-4 whitespace-nowrap">{item.name}</TableCell>
+      <TableCell className="px-6 py-4 whitespace-nowrap">
         <img
           src={item.image}
           alt="item image"
-          className="w-40 h-40 object-contain"
+          className="w-40 h-40 object-cover"
         />
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap">${item.price.toFixed(2)}</td>
-      <td className="px-6 py-4 whitespace-nowrap">
+      </TableCell>
+      <TableCell className="px-6 py-4 whitespace-nowrap">
+        ${item.price.toFixed(2)}
+      </TableCell>
+      <TableCell className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center space-x-2">
           <button
             className="bg-gray-800 text-white px-2 py-1"
@@ -50,7 +53,7 @@ const CartItemsCard: React.FC<CartItemsCardProps> = ({ item }) => {
             +
           </button>
         </div>
-      </td>
+      </TableCell>
       <td className="px-6 py-4 whitespace-nowrap ">
         <svg
           fill="#000000"
@@ -74,7 +77,7 @@ const CartItemsCard: React.FC<CartItemsCardProps> = ({ item }) => {
           </g>
         </svg>
       </td>
-    </tr>
+    </TableRow>
   );
 };
 
