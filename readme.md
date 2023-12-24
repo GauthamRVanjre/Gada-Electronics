@@ -57,7 +57,7 @@ The user section is accessible to all users and includes features like:
   - Typescript
   - Redux Toolkit
   - Tailwind CSS
-  - ShadCn (Note: Please replace this with the correct library/framework if there's been a typo)
+  - ShadCn
 
 - **Authentication:**
 
@@ -87,6 +87,17 @@ npm install
 
 ### Accessing the Application
 
+**Sample Login Credentials:**
+
+- **Admin User:**
+
+  - Email: gautham@gmail.com
+  - Password: gautham
+
+- **Non-admin User:**
+  - Email: donald@gmail.com
+  - Password: donald
+
 1. **Admin Section:**
 
    - Navigate to the admin login page.
@@ -95,7 +106,7 @@ npm install
 
 2. **User Section:**
    - Users can access the main application page.
-   - Explore the product catalog, search for items, filter through items and add favorite products to cart for checkout.
+   - Explore the product catalog, search for items, filter through items, and add favorite products to the cart for checkout.
 
 ### Admin Section Features
 
