@@ -1,6 +1,5 @@
 import express from "express";
 import mongoose from "mongoose";
-import { DATABASE_URL, PORT } from "./config.js";
 import productRoute from "./routes/productRoute.js";
 import userRoute from "./routes/userRoute.js";
 import session from "express-session";
@@ -10,6 +9,7 @@ import cors from "cors";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { User } from "./models/Users.js";
+import "dotenv/config";
 
 const app = express();
 app.use(express.json());
@@ -48,10 +48,10 @@ app.use("/orders", orderRoute);
 app.use("/orderItems", orderItemsRoute);
 
 mongoose
-  .connect(DATABASE_URL)
+  .connect(process.env.DATABASE_URL)
   .then(() => {
     console.log("connected to DB");
-    app.listen(PORT, () => {
+    app.listen(process.env.PORT, () => {
       console.log("server running");
     });
   })
