@@ -38,7 +38,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// allow express to navigate to products route
+// allow express to navigate to different route
 app.use("/products", productRoute);
 
 app.use("/users", userRoute);
@@ -46,6 +46,10 @@ app.use("/users", userRoute);
 app.use("/orders", orderRoute);
 
 app.use("/orderItems", orderItemsRoute);
+
+app.get("/", function (req, res) {
+  res.send("server running");
+});
 
 mongoose
   .connect(process.env.DATABASE_URL)
