@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import ProductCard from "./ProductCard";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store/store";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 interface ProductsListingProps {
   price: number;
@@ -18,11 +19,10 @@ const ProductsListingBar: React.FC<ProductsListingProps> = ({
 }) => {
   const [products, setProducts] = useState<productTypes[]>([]);
   const cartProducts = useSelector((state: RootState) => state.cart.items);
-  console.log(cartProducts);
 
   const fetchProducts = async () => {
     await axios
-      .get(`http://localhost:5555/products/`)
+      .get(`${baseURL}/products/`)
       .then((response) => setProducts(response.data))
       .catch((error) => toast.error(error.message));
   };

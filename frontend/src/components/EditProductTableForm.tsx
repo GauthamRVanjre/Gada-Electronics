@@ -18,6 +18,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Button } from "./ui/button";
 import CustomFormField from "./customFormField";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 interface EditProductTableFormProps {
   product: productTypes;
@@ -40,13 +41,10 @@ const EditProductTableForm: React.FC<EditProductTableFormProps> = ({
     setLoading(true);
 
     try {
-      const response = await axios.put(
-        `http://localhost:5555/products/${product._id}`,
-        {
-          quantity: values.quantity,
-          price: values.price,
-        }
-      );
+      const response = await axios.put(`${baseURL}/products/${product._id}`, {
+        quantity: values.quantity,
+        price: values.price,
+      });
 
       if (response.status === 200) {
         toast.success("Product added successfully");

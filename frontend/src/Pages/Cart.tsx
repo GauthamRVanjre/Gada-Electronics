@@ -17,6 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 const Cart = () => {
   const cart = useSelector((state: RootState) => state.cart);
@@ -25,7 +26,6 @@ const Cart = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useContext(UserContext);
 
-  console.log("cart items", cartItems);
   function calculatePrice() {
     let total = 0;
     cart.items.forEach((item) => (total += item.price * item.quantity));
@@ -51,10 +51,7 @@ const Cart = () => {
     setIsLoading(true);
     constructArrayForBackend();
     try {
-      const res = await axios.post(
-        "http://localhost:5555/orderItems",
-        cartItems
-      );
+      const res = await axios.post(`${baseURL}/orderItems`, cartItems);
       const arrayIDs = res.data;
       console.log(arrayIDs);
       if (arrayIDs.length < 0) {
@@ -62,7 +59,7 @@ const Cart = () => {
       }
       const orderPlace = await axios({
         method: "POST",
-        url: "http://localhost:5555/orders",
+        url: `${baseURL}/orders`,
         data: {
           user: user?.id,
           totalAmount: cartTotal,

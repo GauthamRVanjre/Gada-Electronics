@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import axios, { AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
 import UserContext from "@/context/userContext";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 const LoginForm = () => {
   const [email, setemail] = useState("");
@@ -36,7 +37,7 @@ const LoginForm = () => {
       toast.success("email and password are valid");
     }
     await axios
-      .post("http://localhost:5555/users/login", {
+      .post(`${baseURL}/users/login`, {
         username,
         password,
       })

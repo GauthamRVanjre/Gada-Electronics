@@ -3,6 +3,7 @@ import axios from "axios";
 import { useContext } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 const Navbar = () => {
   const { user, logout } = useContext(UserContext);
@@ -10,7 +11,7 @@ const Navbar = () => {
   // logout function
   const handleLogOut = async () => {
     try {
-      const response = await axios.get("http://localhost:5555/users/logout");
+      const response = await axios.get(`${baseURL}/users/logout`);
       if (response.status === 200) {
         logout();
         toast.success("User logged out");

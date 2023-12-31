@@ -32,6 +32,7 @@ import CustomFormField from "./customFormField";
 import { ScrollArea } from "./ui/scroll-area";
 import axios from "axios";
 import toast from "react-hot-toast";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 const AddProductTableForm = () => {
   const [loading, setLoading] = useState(false);
@@ -63,7 +64,7 @@ const AddProductTableForm = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:5555/products", {
+      const response = await axios.post(`${baseURL}/products`, {
         name: values.name,
         quantity: values.quantity,
         price: values.price,

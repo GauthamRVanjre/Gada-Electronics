@@ -14,7 +14,7 @@ import {
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Button } from "./ui/button";
-// import { Button } from "@/components/ui/button";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 interface DeleteProductDialogProps {
   product: productTypes;
@@ -25,9 +25,7 @@ const DeleteProductDialog: React.FC<DeleteProductDialogProps> = ({
 }) => {
   const handleDelete = async () => {
     try {
-      const response = await axios.delete(
-        `http://localhost:5555/products/${product._id}`
-      );
+      const response = await axios.delete(`${baseURL}/products/${product._id}`);
 
       if (response.status === 200) {
         toast.success("product deleted forever!");

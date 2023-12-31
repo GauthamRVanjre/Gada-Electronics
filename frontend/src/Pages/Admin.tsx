@@ -5,6 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import AddProductTableForm from "@/components/AddProductTable";
 import Navbar from "@/components/Navbar";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 const Admin = () => {
   const [products, setProducts] = useState([]);
@@ -13,7 +14,7 @@ const Admin = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:5555/products");
+      const response = await axios.get(`${baseURL}/products`);
       setProducts(response.data);
     } catch (error) {
       console.log(error);

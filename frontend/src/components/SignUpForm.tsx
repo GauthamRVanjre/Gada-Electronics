@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import axios, { AxiosResponse } from "axios";
 import UserContext from "@/context/userContext";
 import { useNavigate } from "react-router-dom";
+const baseURL = import.meta.env.VITE_BASE_URL;
 
 const SignUpForm = () => {
   const [username, setUsername] = useState("");
@@ -46,7 +47,7 @@ const SignUpForm = () => {
     }
 
     await axios
-      .post("http://localhost:5555/users/register", {
+      .post(`${baseURL}/users/register`, {
         username,
         email,
         password,
