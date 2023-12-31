@@ -1,4 +1,4 @@
-import React, { SetStateAction, useEffect } from "react";
+import React, { useEffect } from "react";
 import { createContext, ReactNode } from "react";
 
 interface User {
@@ -38,7 +38,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
 
   const login = (userData: User) => {
     localStorage.setItem("user", JSON.stringify(userData));
-    setUser(localStorage.getItem("user") as SetStateAction<User | null>);
+    // setUser(localStorage.getItem("user") as SetStateAction<User | null>);
+    setUser(userData);
   };
 
   const logout = () => {
