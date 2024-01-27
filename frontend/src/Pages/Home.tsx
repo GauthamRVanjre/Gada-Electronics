@@ -57,6 +57,7 @@ const Home: React.FC = () => {
           <ProductsListingBar
             price={price[0]}
             selectedCategories={selectedCategories}
+            handleCheckboxChange={handleCheckboxChange}
           />
         </div>
       </div>

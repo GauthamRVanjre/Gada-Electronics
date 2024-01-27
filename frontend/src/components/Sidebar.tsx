@@ -58,7 +58,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
         {categories.map((category) => {
           return (
-            <div className="flex flex-row items-stretch mb-2">
+            <div key={category.id} className="flex flex-row items-stretch mb-2">
               <Checkbox
                 key={category.id}
                 id={category.id}

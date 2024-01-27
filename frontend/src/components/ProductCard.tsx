@@ -9,8 +9,13 @@ import { Button } from "./ui/button";
 interface ProductCardProps {
   product: productTypes;
   cartProducts: cartProduct[];
+  handleCheckboxChange: (value: string) => void;
 }
-const ProductCard: React.FC<ProductCardProps> = ({ product, cartProducts }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  cartProducts,
+  handleCheckboxChange,
+}) => {
   // navigate to navigate the user to login if he is not logged in
   const navigate = useNavigate();
 
@@ -76,7 +81,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, cartProducts }) => {
           {product.description.slice(0, 50)}...
         </p>
         <div className="flex lg:flex-row flex-col justify-between mt-4">
-          <p className="text-white mt-2 p-2 w-fit bg-gray-800">
+          <p
+            onClick={() => {
+              console.log(`${product.category} clicked`);
+              handleCheckboxChange(product.category);
+            }}
+            className="text-white mt-2 p-2 w-fit bg-gray-800"
+          >
             #{product.category}
           </p>
           {!productExists ? (

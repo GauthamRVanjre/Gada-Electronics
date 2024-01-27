@@ -11,11 +11,13 @@ const baseURL = import.meta.env.VITE_BASE_URL;
 interface ProductsListingProps {
   price: number;
   selectedCategories: string[];
+  handleCheckboxChange: (value: string) => void;
 }
 
 const ProductsListingBar: React.FC<ProductsListingProps> = ({
   price,
   selectedCategories,
+  handleCheckboxChange,
 }) => {
   const [products, setProducts] = useState<productTypes[]>([]);
   const cartProducts = useSelector((state: RootState) => state.cart.items);
@@ -48,6 +50,7 @@ const ProductsListingBar: React.FC<ProductsListingProps> = ({
           key={product._id}
           product={product}
           cartProducts={cartProducts}
+          handleCheckboxChange={handleCheckboxChange}
         />
       ))}
       {filteredProducts.length === 0 && <div>No products found</div>}
