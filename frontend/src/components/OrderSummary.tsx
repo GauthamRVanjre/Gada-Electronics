@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -25,6 +26,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store/store";
 import { Loader2 } from "lucide-react";
 import CartItemsCard from "./CartItemsCard";
+import { useReactToPrint } from "react-to-print";
+
 const baseURL = import.meta.env.VITE_BASE_URL;
 
 const OrderSummary = () => {
@@ -33,6 +36,12 @@ const OrderSummary = () => {
   const [cartItems, setCartItems] = useState<cartItemsForBackendType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useContext(UserContext);
+
+  // React to print
+  const componentRef = useRef(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   function calculatePrice() {
     let total = 0;
@@ -91,7 +100,7 @@ const OrderSummary = () => {
         </DialogTrigger>
         <DialogContent className=" w-[450px]">
           <DialogHeader>
-            <DialogTitle>Order Details</DialogTitle>
+            <DialogTitle>Order Summary</DialogTitle>
             <DialogDescription>
               This is your order details. Please click place order when you want
               to order.
@@ -101,7 +110,7 @@ const OrderSummary = () => {
           {cart.items.length === 0 ? (
             <p>Your cart is empty.</p>
           ) : (
-            <div>
+            <div ref={componentRef}>
               <Table className="divide-y divide-gray-200 lg:w-[350px] min-w-full">
                 <TableCaption>Cart Items</TableCaption>
                 <TableHeader className="bg-gray-500">
@@ -109,7 +118,6 @@ const OrderSummary = () => {
                     <TableHead className="text-white">Name</TableHead>
                     <TableHead className="text-white">Price</TableHead>
                     <TableHead className="text-white">Quantity</TableHead>
-                    <TableHead className="text-white">Delete</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody className="bg-white divide-y divide-gray-200">
@@ -128,20 +136,23 @@ const OrderSummary = () => {
           )}
 
           <DialogFooter>
-            <Button
-              disabled={isLoading}
-              className="mr-2"
-              onClick={handleOrderPlacement}
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Please wait
-                </>
-              ) : (
-                "Place Order"
-              )}
-            </Button>
+            <Button onClick={handlePrint}>Print order</Button>
+            <DialogClose>
+              <Button
+                disabled={isLoading}
+                className="mr-2"
+                onClick={handleOrderPlacement}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Please wait
+                  </>
+                ) : (
+                  "Place Order"
+                )}
+              </Button>
+            </DialogClose>
           </DialogFooter>
         </DialogContent>
       </Dialog>

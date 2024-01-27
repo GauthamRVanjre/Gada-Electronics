@@ -31,6 +31,7 @@ const CartItemsCard: React.FC<CartItemsCardProps> = ({ item, hidden }) => {
       <TableCell className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center space-x-2">
           <button
+            hidden={hidden}
             className="bg-gray-800 text-white px-2 py-1"
             onClick={() => dispatch(subtractFromCart(item._id))}
           >
@@ -38,6 +39,7 @@ const CartItemsCard: React.FC<CartItemsCardProps> = ({ item, hidden }) => {
           </button>
           <span>{item.quantity}</span>
           <button
+            hidden={hidden}
             className="bg-gray-800 text-white px-2 py-1"
             onClick={() =>
               dispatch(
@@ -55,7 +57,7 @@ const CartItemsCard: React.FC<CartItemsCardProps> = ({ item, hidden }) => {
           </button>
         </div>
       </TableCell>
-      <TableCell className="px-6 py-4 whitespace-nowrap ">
+      <TableCell hidden={hidden} className="px-6 py-4 whitespace-nowrap ">
         <svg
           fill="#000000"
           version="1.1"
