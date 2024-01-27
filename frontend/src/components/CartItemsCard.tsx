@@ -17,13 +17,15 @@ const CartItemsCard: React.FC<CartItemsCardProps> = ({ item, hidden }) => {
 
   return (
     <TableRow key={item._id}>
-      <TableCell className="px-6 py-4 whitespace-nowrap">{item.name}</TableCell>
-      <TableCell hidden={hidden} className="px-6 py-4 whitespace-nowrap">
-        <img
-          src={item.image}
-          alt="item image"
-          className="w-40 h-40 object-cover"
-        />
+      <TableCell className="px-6 py-4 whitespace-nowrap">
+        <div>
+          <img
+            src={item.image}
+            alt="item image"
+            className="w-40 h-40 object-cover"
+          />
+          {item.name}
+        </div>
       </TableCell>
       <TableCell className="px-6 py-4 whitespace-nowrap">
         ${item.price.toFixed(2)}

@@ -41,12 +41,11 @@ const Cart = () => {
             <p>Your cart is empty.</p>
           ) : (
             <div>
-              <Table className="divide-y divide-gray-200 lg:w-[950px] min-w-full">
+              <Table className="divide-y divide-gray-200 w-[400px] lg:w-[950px] min-w-full">
                 <TableCaption>Cart Items</TableCaption>
                 <TableHeader className="bg-gray-500">
                   <TableRow className="px-6 py-3 text-left  text-xs font-medium bg-gray-900 uppercase tracking-wider">
                     <TableHead className="text-white">Name</TableHead>
-                    <TableHead className="text-white">Image</TableHead>
                     <TableHead className="text-white">Price</TableHead>
                     <TableHead className="text-white">Quantity</TableHead>
                     <TableHead className="text-white">Delete Product</TableHead>

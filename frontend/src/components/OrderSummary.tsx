@@ -140,7 +140,7 @@ const OrderSummary = () => {
             <DialogClose>
               <Button
                 disabled={isLoading}
-                className="mr-2"
+                className="mr-2 mb-2 w-full"
                 onClick={handleOrderPlacement}
               >
                 {isLoading ? (
