@@ -22,6 +22,7 @@ const SignUpForm = () => {
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
   const [adminCode, setAdminCode] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // navigation state
   const navigate = useNavigate();
@@ -45,6 +46,7 @@ const SignUpForm = () => {
     } else {
       toast.success("email and password are valid");
     }
+    setLoading(true);
 
     await axios
       .post(`${baseURL}/users/register`, {
@@ -68,6 +70,7 @@ const SignUpForm = () => {
         toast.error(error.response.data.message);
         console.log(error.response?.data.message);
       });
+    setLoading(false);
   };
 
   return (
@@ -118,7 +121,11 @@ const SignUpForm = () => {
           </div>
         </CardContent>
         <CardFooter>
-          <Button onClick={handleLoginFormSubmit}>Sign Up</Button>
+          {loading ? (
+            <Button disabled>Please wait...</Button>
+          ) : (
+            <Button onClick={handleLoginFormSubmit}>Sign Up</Button>
+          )}
         </CardFooter>
       </Card>
     </>
