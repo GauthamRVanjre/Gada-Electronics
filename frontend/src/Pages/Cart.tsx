@@ -2,13 +2,7 @@ import Navbar from "@/components/Navbar";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store/store";
 import CartItemsCard from "@/components/CartItemsCard";
-import { useContext, useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import axios from "axios";
-import { cartItemsForBackendType } from "@/lib/types/product";
-import UserContext from "@/context/userContext";
-import toast from "react-hot-toast";
-import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -17,14 +11,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-const baseURL = import.meta.env.VITE_BASE_URL;
+import OrderSummary from "@/components/OrderSummary";
 
 const Cart = () => {
   const cart = useSelector((state: RootState) => state.cart);
   const [cartTotal, setCartTotal] = useState(0);
-  const [cartItems, setCartItems] = useState<cartItemsForBackendType[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const { user } = useContext(UserContext);
 
   function calculatePrice() {
     let total = 0;
@@ -36,44 +27,6 @@ const Cart = () => {
   useEffect(() => {
     calculatePrice();
   }, [calculatePrice]);
-
-  function constructArrayForBackend() {
-    const arr: cartItemsForBackendType[] = [];
-    cart.items.forEach((item) => {
-      const obj = { product: item._id, quantity: item.quantity };
-      arr.push(obj);
-    });
-
-    setCartItems(arr);
-  }
-
-  const handleOrderPlacement = async () => {
-    setIsLoading(true);
-    constructArrayForBackend();
-    try {
-      const res = await axios.post(`${baseURL}/orderItems`, cartItems);
-      const arrayIDs = res.data;
-      console.log(arrayIDs);
-      if (arrayIDs.length < 0) {
-        throw new Error("Ordered Items cannot be empty");
-      }
-      const orderPlace = await axios({
-        method: "POST",
-        url: `${baseURL}/orders`,
-        data: {
-          user: user?.id,
-          totalAmount: cartTotal,
-          orderItems: arrayIDs,
-        },
-      });
-      console.log("order place status", orderPlace.data._id);
-      toast.success(`Order placed successfully with id ${orderPlace.data._id}`);
-    } catch (error) {
-      toast.error("order could not be placed");
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <>
@@ -110,20 +63,8 @@ const Cart = () => {
                   <div className="bg-black text-white p-2">Total Price: </div>
                   <div className="p-2">{cartTotal}</div>
                 </div>
-                <Button
-                  disabled={isLoading}
-                  className="mr-2"
-                  onClick={handleOrderPlacement}
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Please wait
-                    </>
-                  ) : (
-                    "Place Order"
-                  )}
-                </Button>
+
+                <OrderSummary />
               </div>
             </div>
           )}

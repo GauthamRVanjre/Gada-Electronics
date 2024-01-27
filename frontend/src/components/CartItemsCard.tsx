@@ -10,14 +10,15 @@ import { TableRow, TableCell } from "./ui/table";
 
 interface CartItemsCardProps {
   item: cartProduct;
+  hidden?: boolean;
 }
-const CartItemsCard: React.FC<CartItemsCardProps> = ({ item }) => {
+const CartItemsCard: React.FC<CartItemsCardProps> = ({ item, hidden }) => {
   const dispatch = useDispatch();
 
   return (
     <TableRow key={item._id}>
       <TableCell className="px-6 py-4 whitespace-nowrap">{item.name}</TableCell>
-      <TableCell className="px-6 py-4 whitespace-nowrap">
+      <TableCell hidden={hidden} className="px-6 py-4 whitespace-nowrap">
         <img
           src={item.image}
           alt="item image"
@@ -54,7 +55,7 @@ const CartItemsCard: React.FC<CartItemsCardProps> = ({ item }) => {
           </button>
         </div>
       </TableCell>
-      <td className="px-6 py-4 whitespace-nowrap ">
+      <TableCell className="px-6 py-4 whitespace-nowrap ">
         <svg
           fill="#000000"
           version="1.1"
@@ -76,7 +77,7 @@ const CartItemsCard: React.FC<CartItemsCardProps> = ({ item }) => {
             </g>
           </g>
         </svg>
-      </td>
+      </TableCell>
     </TableRow>
   );
 };
