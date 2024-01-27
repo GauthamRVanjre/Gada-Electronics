@@ -20,12 +20,16 @@ const ProductsListingBar: React.FC<ProductsListingProps> = ({
   handleCheckboxChange,
 }) => {
   const [products, setProducts] = useState<productTypes[]>([]);
+  const [loading, setLoading] = useState(false);
   const cartProducts = useSelector((state: RootState) => state.cart.items);
 
   const fetchProducts = async () => {
+    setLoading(true);
     await axios
       .get(`${baseURL}/products/`)
-      .then((response) => setProducts(response.data))
+      .then((response) => {
+        setProducts(response.data), setLoading(false);
+      })
       .catch((error) => toast.error(error.message));
   };
 
@@ -45,6 +49,7 @@ const ProductsListingBar: React.FC<ProductsListingProps> = ({
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+      {loading && <div>Loading...</div>}
       {filteredProducts.map((product) => (
         <ProductCard
           key={product._id}
