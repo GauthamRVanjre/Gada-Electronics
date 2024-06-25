@@ -87,12 +87,14 @@ npm install
 
 - **Admin User:**
 
-  - Email: gautham@gmail.com
-  - Password: gautham
+  - username: admin
+  - Email: admin@gmail.com
+  - Password: admin
 
 - **Non-admin User:**
-  - Email: donald@gmail.com
-  - Password: donald
+  - username: test
+  - Email: test@gmail.com
+  - Password: test123
 
 1. **Admin Section:**
 
